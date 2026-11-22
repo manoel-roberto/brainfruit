@@ -1,0 +1,8 @@
+LARGURA = 800
+ALTURA = 600
+FPS = 30
+
+# Cores (R, G, B)
+BRANCO = (255, 255, 255)
+AZUL_ACO = (63, 114, 155)
+AZUL = (100, 150, 255)
