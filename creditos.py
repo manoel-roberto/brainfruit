@@ -13,15 +13,16 @@ class Creditos:
             "Disciplina: Algoritmos e Programação",
             "",
             "Orientação e Apoio Acadêmico:",
-            "Coordenação do Projeto: Profa. Drª Claudia P. Pereira ",
-            "Tutoria: Luana",
+            "Coordenação do Projeto: Profa. Drª Claudia P. Pereira",
+            "Tutoria (Jedi Master): Luana (Turma Akiva)",
             "",
             "Agradecimentos Especiais:",
-            "À minha esposa Camila, por todo o apoio e incentivo!",
+            "À minha esposa Camila Freitas de Medeiros,",
+            "pelas artes das frutas e por todo apoio no curso noturno! ❤️",
             "",
             "Recursos Visuais e Sonoros (Assets Livres):",
-            "Música: @wyver9 | SFX: Hungry Dino", #https://opengameart.org/content/good-mood-theme-8-bit | https://opengameart.org/content/hungry-dino-9-chiptune-tracks-10-sfx
-            "Ícones: adrianadam | Frutas: Camila Freitas de Medeiros" #https://www.flaticon.com/authors/adrianadam
+            "Música: @wyver9 | SFX: Hungry Dino",
+            "Ícones: adrianadam | Frutas: Camila Freitas de Medeiros"
         ]
 
     def desenhar(self, tela, largura_tela, altura_tela):
