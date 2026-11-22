@@ -108,9 +108,6 @@ Este jogo foi desenvolvido no âmbito das atividades acadêmicas e de extensão 
   - **PBL (*Problem-Based Learning* / Aprendizado Baseado em Problemas):** Ensino orientado à resolução de desafios reais de programação, culminando na arquitetura e implementação completa de um jogo digital com Pygame.
 - **Ambientes Utilizados:** Plataforma **Discord** para encontros virtuais síncronos e mentoria, **YouTube** para as aulas assíncronas e **Replit** para exercícios e práticas de codificação.
 
-### O Programa de Extensão (Resolução CONSEPE nº 004/2022)
-> *"Programa de Mentoria para alunos de Engenharia de Computação da UEFS e alunos do ensino médio da Região Metropolitana de Feira de Santana."*
-
 O projeto visa mitigar a carência de formação tecnológica nas escolas públicas do interior da Bahia, despertando vocações precoces para a área de Tecnologia da Informação, fortalecendo o **Pensamento Computacional** e reduzindo a evasão nos cursos superiores de Computação.
 
 Inspirado no universo **Star Wars**, o projeto organiza sua estrutura de tutoria em uma hierarquia lúdica:
