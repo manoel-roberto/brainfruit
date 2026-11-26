@@ -1,9 +1,21 @@
+"""
+Módulo de exibição da tela de créditos do jogo BrainFruit.
+Apresenta informações sobre a disciplina, autoria, tutoria, agradecimentos e atribuições de assets.
+"""
+
 import pygame
 from config import *
 
 
 class Creditos:
+    """
+    Renderiza um painel centralizado com os créditos e reconhecimentos do projeto.
+    """
+
     def __init__(self):
+        """
+        Define as fontes e as linhas de texto exibidas no painel de créditos.
+        """
         self.fonte_titulo = pygame.font.SysFont(None, 54)
         self.fonte_texto = pygame.font.SysFont(None, 28)
 
@@ -13,8 +25,8 @@ class Creditos:
             "Disciplina: Algoritmos e Programação",
             "",
             "Orientação e Apoio Acadêmico:",
-            "Coordenação do Projeto: Profa. Drª Pâmela M. Candida Cortez",
-            "Tutoria (Jedi Master): Luana Pedreira (Turma Akiva)",
+            "Coordenação do Projeto: Profa. Drª Claudia P. Pereira",
+            "Tutoria (Jedi Master): Luana (Turma Akiva)",
             "",
             "Agradecimentos Especiais:",
             "À minha esposa Camila Freitas de Medeiros,",
@@ -26,6 +38,14 @@ class Creditos:
         ]
 
     def desenhar(self, tela, largura_tela, altura_tela):
+        """
+        Desenha o painel azul e centraliza cada linha de texto dos créditos.
+
+        Parâmetros:
+            tela (pygame.Surface): Superfície de destino.
+            largura_tela (int): Largura atual da janela.
+            altura_tela (int): Altura atual da janela.
+        """
         painel = pygame.Rect(largura_tela // 2 - 320, altura_tela // 2 - 270, 640, 540)
         pygame.draw.rect(tela, AZUL, painel, border_radius=15)
         pygame.draw.rect(tela, BRANCO, painel, 3, border_radius=15)
