@@ -135,7 +135,7 @@ while rodando:
                     if len(nome_digitado) < 12:
                         nome_digitado += evento.unicode
 
-        if evento.type == pygame.MOUSEBUTTONDOWN:
+        if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
             if btn_som.collidepoint(evento.pos):
                 gerenciador_audio.alternar_mute()
                 continue
