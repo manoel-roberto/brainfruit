@@ -102,7 +102,6 @@ def iniciar_partida(pares=None, nova_dificuldade=None):
     if pares is None:
         pares = len(dados_cartas) // 2
 
-    gerenciador_audio.tocar_sfx("carregar")
     dados_cartas = gerar_tabuleiro(pares)
     tabuleiro_visual = Tabuleiro(dados_cartas, largura_atual, altura_atual)
     cartas_ativas.clear()
@@ -188,7 +187,6 @@ while rodando:
             if estado == "MENU":
                 dif_escolhida, pares = menu_principal.verificar_clique(evento.pos)
                 if dif_escolhida == "CREDITOS":
-                    gerenciador_audio.tocar_sfx("carregar")
                     estado = "CREDITOS"
                     gerenciador_audio.tocar_musica("CREDITOS")
                 elif dif_escolhida != None:

@@ -35,7 +35,6 @@ class GerenciadorAudio:
 
         # Efeitos sonoros das ações do jogador
         caminhos_sfx = {
-            "carregar": "assets/Audio/SFX_1/SFX/dinoegg.wav",
             "virar_carta": "assets/Audio/SFX_1/SFX/beep.wav",
             "acerto": "assets/Audio/SFX_1/SFX/confirmbeep.wav",
             "erro": "assets/Audio/SFX_1/SFX/oops.wav"
