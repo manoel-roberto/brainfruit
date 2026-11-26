@@ -61,6 +61,28 @@ except (FileNotFoundError, pygame.error):
 
 gerenciador_audio.tocar_musica("MENU")
 
+
+def iniciar_partida(pares=None, nova_dificuldade=None):
+    global dificuldade, dados_cartas, tabuleiro_visual
+    global tentativas, segundos, tempo_inicio, estado
+
+    if nova_dificuldade is not None:
+        dificuldade = nova_dificuldade
+
+    if pares is None:
+        pares = len(dados_cartas) // 2
+
+    gerenciador_audio.tocar_sfx("carregar")
+    dados_cartas = gerar_tabuleiro(pares)
+    tabuleiro_visual = Tabuleiro(dados_cartas, largura_atual, altura_atual)
+    cartas_ativas.clear()
+    tentativas = 0
+    segundos = 0
+    tempo_inicio = pygame.time.get_ticks()
+    estado = "JOGANDO"
+    gerenciador_audio.tocar_musica("JOGANDO", dificuldade)
+
+
 rodando = True
 while rodando:
     relogio.tick(FPS)

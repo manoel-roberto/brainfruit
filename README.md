@@ -115,7 +115,7 @@ Inspirado no universo **Star Wars**, o projeto organiza sua estrutura de tutoria
 - **Jedi Masters:** Estudantes do curso de Engenharia de Computação da UEFS que atuam como mentores/monitores diretos das turmas, guiando os encontros síncronos, tirando dúvidas e avaliando as atividades práticas.
 - **Padawans:** Os aprendizes participantes dos cursos.
 
-#### Equipe de Coordenação (Yodas 2024):
+#### Equipe de Coordenação (Yodas 2026):
 - **Profª Drª Pâmela M. Candida Cortez** – Coordenadora Geral do Projeto
 - **Caio Bruno de Oliveira Matos** – Curso de Lógica de Programação
 - **Paulo Henrique Dantas Barreto** – Curso de Algoritmos e Programação
@@ -131,7 +131,7 @@ Para mais detalhes e inscrições:
 
 ### Desenvolvimento e Coordenação
 - **Desenvolvimento e Programação:** Manoel Roberto
-- **Coordenação e Orientação:** Profª Drª Claudia P. Pereira
+- **Coordenação e Orientação:** Profª Drª Pâmela M. Candida Cortez
 - **Tutoria / Mentoria (Jedi Master):** **Luana**, com agradecimento especial por ter guiado com dedicação, carinho e imensa paciência a nossa **Turma Akiva** nos encontros de terças e quintas-feiras!
 - **Videoaulas e Conteúdo:** Prof. Dr. Roberto Bittencourt
 
