@@ -132,7 +132,7 @@ Para mais detalhes e inscrições:
 ### Desenvolvimento e Coordenação
 - **Desenvolvimento e Programação:** Manoel Roberto
 - **Coordenação e Orientação:** Profª Drª Pâmela M. Candida Cortez
-- **Tutoria / Mentoria (Jedi Master):** **Luana**, com agradecimento especial por ter guiado com dedicação, carinho e imensa paciência a nossa **Turma Akiva** nos encontros de terças e quintas-feiras!
+- **Tutoria / Mentoria (Jedi Master):** [Luana Pedreira](https://github.com/luanapedreira), com agradecimento especial por ter guiado com dedicação, carinho e imensa paciência a nossa **Turma Akiva** nos encontros de terças e quintas-feiras!
 - **Videoaulas e Conteúdo:** Prof. Dr. Roberto Bittencourt
 
 ### Agradecimento Especial
