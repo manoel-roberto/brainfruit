@@ -147,16 +147,7 @@ while rodando:
                     estado = "CREDITOS"
                     gerenciador_audio.tocar_musica("CREDITOS")
                 elif dif_escolhida != None:
-                    gerenciador_audio.tocar_sfx("carregar")
-                    dificuldade = dif_escolhida
-                    dados_cartas = gerar_tabuleiro(pares)
-                    tabuleiro_visual = Tabuleiro(dados_cartas, largura_atual, altura_atual)
-                    cartas_ativas.clear()
-                    tentativas = 0
-                    segundos = 0
-                    tempo_inicio = pygame.time.get_ticks()
-                    estado = "JOGANDO"
-                    gerenciador_audio.tocar_musica("JOGANDO", dificuldade)
+                    iniciar_partida(pares, dif_escolhida)
 
             elif estado == "CREDITOS":
                 estado = "MENU"
@@ -179,15 +170,7 @@ while rodando:
 
             elif estado == "VITORIA":
                 if btn_reiniciar.collidepoint(evento.pos):
-                    gerenciador_audio.tocar_sfx("carregar")
-                    dados_cartas = gerar_tabuleiro(len(dados_cartas) // 2)
-                    tabuleiro_visual = Tabuleiro(dados_cartas, largura_atual, altura_atual)
-                    cartas_ativas.clear()
-                    tentativas = 0
-                    segundos = 0
-                    tempo_inicio = pygame.time.get_ticks()
-                    estado = "JOGANDO"
-                    gerenciador_audio.tocar_musica("JOGANDO", dificuldade)
+                    iniciar_partida()
                 elif btn_menu.collidepoint(evento.pos):
                     estado = "MENU"
                     gerenciador_audio.tocar_musica("MENU")
