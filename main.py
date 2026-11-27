@@ -68,6 +68,7 @@ segundos = 0
 
 dados_ranking = carregar_ranking()
 nome_digitado = ""
+cursor_atual = None
 
 # Carrega os ícones visuais do botão de som com fallback seguro
 try:
@@ -261,20 +262,31 @@ while rodando:
             estado = "JOGANDO"
 
     # ----------------------------------------------------
-    # 3. Renderização Gráfica por Estado
+    # 3. Renderização Gráfica por Estado e Efeitos de Hover
     # ----------------------------------------------------
     TELA.fill(AZUL_ACO)
+    pos_mouse = pygame.mouse.get_pos()
+    hover_ativo = False
+
+    # Destaque de hover no botão de som (presente em quase todas as telas)
+    if btn_som.collidepoint(pos_mouse):
+        hover_ativo = True
+        pygame.draw.circle(TELA, AZUL_HOVER, btn_som.center, 20)
 
     if estado == "MENU":
-        menu_principal.desenhar(TELA, largura_atual, altura_atual)
+        if menu_principal.desenhar(TELA, largura_atual, altura_atual):
+            hover_ativo = True
 
     elif estado == "CREDITOS":
         tela_creditos.desenhar(TELA, largura_atual, altura_atual)
         aviso = fonte_hud.render("Clique em qualquer lugar para voltar", True, BRANCO)
         TELA.blit(aviso, aviso.get_rect(center=(largura_atual // 2, altura_atual - 30)))
+        hover_ativo = True
 
     elif estado in ["JOGANDO", "ESPERANDO"]:
-        tabuleiro_visual.desenhar(TELA)
+        # As cartas mostram hover apenas quando o jogador puder clicar para virar
+        if tabuleiro_visual.desenhar(TELA) and estado == "JOGANDO" and len(cartas_ativas) < 2:
+            hover_ativo = True
 
         segundos = (pygame.time.get_ticks() - tempo_inicio) // 1000
 
@@ -283,10 +295,16 @@ while rodando:
         TELA.blit(texto_tempo, (20, 20))
         TELA.blit(texto_tentativas, (largura_atual - texto_tentativas.get_width() - 20, 20))
 
-        # Botão Desistir
-        pygame.draw.rect(TELA, AZUL, btn_desistir, border_radius=10)
-        pygame.draw.rect(TELA, BRANCO, btn_desistir, 2, border_radius=10)
-        texto_btn = fonte_hud.render("Desistir", True, BRANCO)
+        # Botão Desistir com efeito de hover
+        if btn_desistir.collidepoint(pos_mouse):
+            hover_ativo = True
+            pygame.draw.rect(TELA, AZUL_HOVER, btn_desistir, border_radius=10)
+            pygame.draw.rect(TELA, BRANCO, btn_desistir, 3, border_radius=10)
+            texto_btn = fonte_hud.render("Desistir", True, AZUL_ESCURO)
+        else:
+            pygame.draw.rect(TELA, AZUL, btn_desistir, border_radius=10)
+            pygame.draw.rect(TELA, BRANCO, btn_desistir, 2, border_radius=10)
+            texto_btn = fonte_hud.render("Desistir", True, BRANCO)
         TELA.blit(texto_btn, texto_btn.get_rect(center=btn_desistir.center))
 
     elif estado == "NOVO_RECORDE":
@@ -334,16 +352,28 @@ while rodando:
             TELA.blit(surf, surf.get_rect(center=(largura_atual // 2, altura_atual // 2 - 30 + idx * 34)))
             idx += 1
 
-        # Botão Reiniciar
-        pygame.draw.rect(TELA, AZUL_ACO, btn_reiniciar, border_radius=10)
-        pygame.draw.rect(TELA, BRANCO, btn_reiniciar, 2, border_radius=10)
-        texto_reiniciar = fonte_hud.render("Reiniciar", True, BRANCO)
+        # Botão Reiniciar com efeito de hover
+        if btn_reiniciar.collidepoint(pos_mouse):
+            hover_ativo = True
+            pygame.draw.rect(TELA, AZUL_HOVER, btn_reiniciar, border_radius=10)
+            pygame.draw.rect(TELA, BRANCO, btn_reiniciar, 3, border_radius=10)
+            texto_reiniciar = fonte_hud.render("Reiniciar", True, AZUL_ESCURO)
+        else:
+            pygame.draw.rect(TELA, AZUL_ACO, btn_reiniciar, border_radius=10)
+            pygame.draw.rect(TELA, BRANCO, btn_reiniciar, 2, border_radius=10)
+            texto_reiniciar = fonte_hud.render("Reiniciar", True, BRANCO)
         TELA.blit(texto_reiniciar, texto_reiniciar.get_rect(center=btn_reiniciar.center))
 
-        # Botão Voltar ao Menu
-        pygame.draw.rect(TELA, AZUL_ACO, btn_menu, border_radius=10)
-        pygame.draw.rect(TELA, BRANCO, btn_menu, 2, border_radius=10)
-        texto_voltar = fonte_hud.render("Voltar ao Menu", True, BRANCO)
+        # Botão Voltar ao Menu com efeito de hover
+        if btn_menu.collidepoint(pos_mouse):
+            hover_ativo = True
+            pygame.draw.rect(TELA, AZUL_HOVER, btn_menu, border_radius=10)
+            pygame.draw.rect(TELA, BRANCO, btn_menu, 3, border_radius=10)
+            texto_voltar = fonte_hud.render("Voltar ao Menu", True, AZUL_ESCURO)
+        else:
+            pygame.draw.rect(TELA, AZUL_ACO, btn_menu, border_radius=10)
+            pygame.draw.rect(TELA, BRANCO, btn_menu, 2, border_radius=10)
+            texto_voltar = fonte_hud.render("Voltar ao Menu", True, BRANCO)
         TELA.blit(texto_voltar, texto_voltar.get_rect(center=btn_menu.center))
 
     # Desenha o ícone de áudio no canto inferior esquerdo
@@ -351,6 +381,15 @@ while rodando:
         TELA.blit(img_mute, btn_som)
     else:
         TELA.blit(img_volume, btn_som)
+
+    # Atualiza o cursor do mouse (cursor de mão sobre botões e cartas clicáveis)
+    cursor_desejado = pygame.SYSTEM_CURSOR_HAND if hover_ativo else pygame.SYSTEM_CURSOR_ARROW
+    if cursor_atual != cursor_desejado:
+        try:
+            pygame.mouse.set_cursor(cursor_desejado)
+            cursor_atual = cursor_desejado
+        except (pygame.error, AttributeError):
+            pass
 
     pygame.display.flip()
 

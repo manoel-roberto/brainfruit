@@ -1,6 +1,7 @@
 """
 Módulo do menu principal do jogo BrainFruit.
-Renderiza botões de seleção de dificuldade, botão de créditos e plano de fundo animado (GIF).
+Renderiza botões de seleção de dificuldade, botão de créditos e plano de fundo animado (GIF),
+com suporte a realce visual (hover) e cursor interativo.
 """
 
 import pygame
@@ -77,12 +78,15 @@ class Menu:
 
     def desenhar(self, tela, largura_tela, altura_tela):
         """
-        Renderiza o fundo animado, o título e todos os botões do menu.
+        Renderiza o fundo animado, o título e todos os botões do menu com destaque visual de hover.
 
         Parâmetros:
             tela (pygame.Surface): Superfície de destino.
             largura_tela (int): Largura atual da janela.
             altura_tela (int): Altura atual da janela.
+
+        Retorna:
+            bool: True se o mouse estiver sobre algum botão clicável do menu.
         """
         # Animação do GIF de fundo se disponível
         if len(self.fundo_frames) > 0:
@@ -98,30 +102,49 @@ class Menu:
             tela.blit(frame, (0, 0))
 
         self.atualizar_layout(largura_tela, altura_tela)
+        pos_mouse = pygame.mouse.get_pos()
+        hover_algum = False
 
         # Desenho do título principal
         texto_titulo = self.fonte_titulo.render("BrainFruit", True, BRANCO)
         tela.blit(texto_titulo, (largura_tela // 2 - texto_titulo.get_width() // 2, altura_tela // 2 - 180))
 
-        # Textos e botões de dificuldade
-        texto_facil = self.fonte_menu.render("Fácil (4x4)", True, BRANCO)
-        tela.blit(texto_facil, texto_facil.get_rect(center=self.btn_facil.center))
+        # Botões de escolha de nível de dificuldade
+        botoes_dificuldade = [
+            (self.btn_facil, "Fácil (4x4)"),
+            (self.btn_medio, "Médio (6x6)"),
+            (self.btn_dificil, "Difícil (8x8)")
+        ]
 
-        texto_medio = self.fonte_menu.render("Médio (6x6)", True, BRANCO)
-        tela.blit(texto_medio, texto_medio.get_rect(center=self.btn_medio.center))
+        for btn, texto in botoes_dificuldade:
+            if btn.collidepoint(pos_mouse):
+                hover_algum = True
+                # Efeito de hover: fundo claro e borda branca de destaque
+                pygame.draw.rect(tela, AZUL_HOVER, btn, border_radius=10)
+                pygame.draw.rect(tela, BRANCO, btn, 3, border_radius=10)
+                txt_render = self.fonte_menu.render(texto, True, AZUL_ESCURO)
+            else:
+                # Estado padrão: fundo sutil e borda azul
+                pygame.draw.rect(tela, AZUL_ESCURO, btn, border_radius=10)
+                pygame.draw.rect(tela, AZUL, btn, 2, border_radius=10)
+                txt_render = self.fonte_menu.render(texto, True, BRANCO)
 
-        texto_dificil = self.fonte_menu.render("Difícil (8x8)", True, BRANCO)
-        tela.blit(texto_dificil, texto_dificil.get_rect(center=self.btn_dificil.center))
-
-        pygame.draw.rect(tela, AZUL, self.btn_facil, 3, border_radius=10)
-        pygame.draw.rect(tela, AZUL, self.btn_medio, 3, border_radius=10)
-        pygame.draw.rect(tela, AZUL, self.btn_dificil, 3, border_radius=10)
+            tela.blit(txt_render, txt_render.get_rect(center=btn.center))
 
         # Botão de Créditos no canto inferior direito
-        pygame.draw.rect(tela, AZUL, self.btn_creditos, border_radius=10)
-        pygame.draw.rect(tela, BRANCO, self.btn_creditos, 2, border_radius=10)
-        texto_cred = self.fonte_pequena.render("Créditos", True, BRANCO)
+        if self.btn_creditos.collidepoint(pos_mouse):
+            hover_algum = True
+            pygame.draw.rect(tela, AZUL_HOVER, self.btn_creditos, border_radius=10)
+            pygame.draw.rect(tela, BRANCO, self.btn_creditos, 3, border_radius=10)
+            texto_cred = self.fonte_pequena.render("Créditos", True, AZUL_ESCURO)
+        else:
+            pygame.draw.rect(tela, AZUL, self.btn_creditos, border_radius=10)
+            pygame.draw.rect(tela, BRANCO, self.btn_creditos, 2, border_radius=10)
+            texto_cred = self.fonte_pequena.render("Créditos", True, BRANCO)
+
         tela.blit(texto_cred, texto_cred.get_rect(center=self.btn_creditos.center))
+
+        return hover_algum
 
     def verificar_clique(self, pos_mouse):
         """

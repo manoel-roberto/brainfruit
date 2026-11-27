@@ -1,6 +1,7 @@
 """
 Módulo de renderização e posicionamento visual do tabuleiro de cartas.
-Calcula dimensões dinâmicas das cartas e renderiza imagens ou nomes de frutas.
+Calcula dimensões dinâmicas das cartas e renderiza imagens ou nomes de frutas,
+com suporte a efeito de hover nas cartas fechadas.
 """
 
 import pygame
@@ -107,10 +108,17 @@ class Tabuleiro:
     def desenhar(self, tela):
         """
         Desenha todas as cartas na tela com base no seu estado (virada/resolvida ou oculta).
+        Aplica efeito de hover em cartas disponíveis para clique.
 
         Parâmetros:
             tela (pygame.Surface): Superfície de destino onde as cartas serão desenhadas.
+
+        Retorna:
+            bool: True se o mouse estiver sobre alguma carta clicável (oculta e não resolvida).
         """
+        pos_mouse = pygame.mouse.get_pos()
+        hover_carta = False
+
         for carta in self.cartas:
             # Carta revelada (virada pelo jogador ou já resolvida)
             if carta["virada"] == True or carta["resolvida"] == True:
@@ -122,7 +130,15 @@ class Tabuleiro:
                 else:
                     texto = self.fonte_carta.render(carta["nome"], True, AZUL_ACO)
                     tela.blit(texto, texto.get_rect(center=carta["rect"].center))
-            # Carta com o verso voltado para cima
+            # Carta com o verso voltado para cima (disponível para clique)
             else:
-                pygame.draw.rect(tela, AZUL, carta["rect"], border_radius=8)
-                pygame.draw.rect(tela, BRANCO, carta["rect"], 2, border_radius=8)
+                if carta["rect"].collidepoint(pos_mouse):
+                    hover_carta = True
+                    # Efeito de hover: azul mais claro e borda branca de destaque
+                    pygame.draw.rect(tela, AZUL_HOVER, carta["rect"], border_radius=8)
+                    pygame.draw.rect(tela, BRANCO, carta["rect"], 3, border_radius=8)
+                else:
+                    pygame.draw.rect(tela, AZUL, carta["rect"], border_radius=8)
+                    pygame.draw.rect(tela, BRANCO, carta["rect"], 2, border_radius=8)
+
+        return hover_carta
